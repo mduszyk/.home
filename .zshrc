@@ -1,0 +1,83 @@
+# Use powerline
+USE_POWERLINE="true"
+# Has weird character width
+# Example:
+#    is not a diamond
+HAS_WIDECHARS="false"
+# Source manjaro-zsh-configuration
+if [[ -e /usr/share/zsh/manjaro-zsh-config ]]; then
+  source /usr/share/zsh/manjaro-zsh-config
+fi
+# Use manjaro zsh prompt
+#if [[ -e /usr/share/zsh/manjaro-zsh-prompt ]]; then
+#  source /usr/share/zsh/manjaro-zsh-prompt
+#fi
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/home/m/.opt/miniforge3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/home/m/.opt/miniforge3/etc/profile.d/conda.sh" ]; then
+        . "/home/m/.opt/miniforge3/etc/profile.d/conda.sh"
+    else
+        export PATH="/home/m/.opt/miniforge3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+
+if [ -f "/home/m/.opt/miniforge3/etc/profile.d/mamba.sh" ]; then
+    . "/home/m/.opt/miniforge3/etc/profile.d/mamba.sh"
+fi
+# <<< conda initialize <<<
+
+# set prompt after conda init so conda env name is not show on startup
+autoload -Uz add-zsh-hook
+git_branch () {
+    branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
+    if [ -n "$branch" ]; then
+        git diff --quiet 2>/dev/null
+        if [ $? -ne 0 ]; then
+            branch="*"$branch
+        fi
+    fi
+    psvar[1]=$branch
+}
+add-zsh-hook precmd git_branch
+PS1="%F{#34DCF7}%1~%f %F{#ff0000}%v%f "
+
+# title
+DISABLE_AUTO_TITLE="true"
+
+function set_terminal_title {
+    echo -ne "\033]0;$1\007"
+}
+
+# executed before prompt is displayed
+precmd() {
+    # Replace home directory with ~
+    local dir="${PWD/#$HOME/~}"
+    set_terminal_title "zsh $dir"
+}
+
+# executed before executing a command
+preexec() {
+    # Replace home directory with ~
+    local dir="${PWD/#$HOME/~}"
+    set_terminal_title "$1"
+}
+
+#alias ls='ls --color=auto'
+alias gs='git status'
+alias ga='git add -A'
+alias gc='git commit -a'
+alias gl='git log'
+alias gd='git diff'
+alias vim=nvim
+
+export TERM="xterm-256color"
+export EDITOR="vi -e"
+export VISUAL="nvim"
+export PATH=~/.opt/bin:$PATH
+
