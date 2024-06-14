@@ -60,10 +60,8 @@ git_branch () {
     psvar[1]=$branch
 }
 add-zsh-hook precmd git_branch
-PS1="%F{#34DCF7}%1~%f %F{#9BC78D}%v%f "
 
-# title
-DISABLE_AUTO_TITLE="true"
+PS1="%F{#34DCF7}%1~%f %F{#9BC78D}%v%f "
 
 function set_terminal_title {
     echo -ne "\033]0;$1\007"
