@@ -117,7 +117,9 @@ eval "$(dircolors -b)"
 
 alias ls='ls --color=auto'
 alias grep='grep --color=always'
-
+alias free='free -h'
+alias df='df -h'
+alias cp='cp -i'
 alias gs='git status'
 alias ga='git add -A'
 alias gc='git commit -a'
