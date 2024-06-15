@@ -10,7 +10,7 @@ setopt histignorealldups    # If a new command is a duplicate, remove the older 
 setopt autocd               # if only directory path is entered, cd there.
 setopt inc_append_history   # save commands are added to the history immediately, otherwise only when shell exits.
 setopt histignorespace      # Don't save commands that start with space
-setopt SHARE_HISTORY
+setopt share_history
 
 bindkey -e
 
@@ -28,28 +28,7 @@ HISTSIZE=20000
 SAVEHIST=20000
 WORDCHARS=${WORDCHARS//\/[&.;]}  # Don't consider certain characters part of the word
 
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/home/m/.opt/miniforge3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/home/m/.opt/miniforge3/etc/profile.d/conda.sh" ]; then
-        . "/home/m/.opt/miniforge3/etc/profile.d/conda.sh"
-    else
-        export PATH="/home/m/.opt/miniforge3/bin:$PATH"
-    fi
-fi
-unset __conda_setup
-
-if [ -f "/home/m/.opt/miniforge3/etc/profile.d/mamba.sh" ]; then
-    . "/home/m/.opt/miniforge3/etc/profile.d/mamba.sh"
-fi
-# <<< conda initialize <<<
-
-# set prompt after conda init so conda env name is not show on startup
-autoload -Uz add-zsh-hook
-git_branch () {
+function git_branch () {
     branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
     if [ -n "$branch" ]; then
         git diff --quiet 2>/dev/null
@@ -59,32 +38,34 @@ git_branch () {
     fi
     psvar[1]=$branch
 }
-add-zsh-hook precmd git_branch
-
-PS1="%F{#34DCF7}%1~%f %F{#9BC78D}%v%f "
 
 function set_terminal_title {
     echo -ne "\033]0;$1\007"
 }
 
-# executed before prompt is displayed
-precmd() {
+function zsh_title() {
     # replace home directory with ~
     local dir="${PWD/#$HOME/~}"
     set_terminal_title "zsh $dir"
 }
 
-# executed before executing a command
-preexec() {
+function cmd_title() {
     set_terminal_title "$1"
 }
+
+autoload -Uz add-zsh-hook
+# before prompt is displayed
+add-zsh-hook precmd git_branch
+add-zsh-hook precmd zsh_title
+# before command is executed
+add-zsh-hook preexec cmd_title
 
 # theming
 autoload -U compinit colors zcalc
 compinit -d
 colors
 
-# less colors (including man pages)
+# less colours (including man pages)
 export LESS_TERMCAP_mb=$'\e[38;5;186m'    # begin bold
 export LESS_TERMCAP_md=$'\e[38;5;104m'    # begin bold
 export LESS_TERMCAP_me=$'\e[0m'           # reset bold
@@ -114,4 +95,26 @@ export TERM="xterm-256color"
 export EDITOR="vi -e"
 export VISUAL="nvim"
 export PATH=~/.opt/bin:$PATH
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/home/m/.opt/miniforge3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/home/m/.opt/miniforge3/etc/profile.d/conda.sh" ]; then
+        . "/home/m/.opt/miniforge3/etc/profile.d/conda.sh"
+    else
+        export PATH="/home/m/.opt/miniforge3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+
+if [ -f "/home/m/.opt/miniforge3/etc/profile.d/mamba.sh" ]; then
+    . "/home/m/.opt/miniforge3/etc/profile.d/mamba.sh"
+fi
+# <<< conda initialize <<<
+
+# set prompt after conda init so conda env name is not shown for base env
+PS1="%F{#34DCF7}%1~%f %F{#9BC78D}%v%f "
 
