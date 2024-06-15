@@ -80,7 +80,7 @@ export PAGER=less
 
 eval "$(dircolors -b)"
 
-alias ls='ls --color=auto'
+alias ls='ls --color=always'
 alias grep='grep --color=always'
 alias free='free -m'
 alias df='df -h'
