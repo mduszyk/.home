@@ -14,10 +14,14 @@ setopt share_history
 
 bindkey -e
 
-zstyle ':completion:*' matcher-list 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' # Case insensitive tab completion
-zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"         # Colored completion (different colors for dirs/files/etc)
-zstyle ':completion:*' rehash true                              # automatically find new executables in path 
-zstyle ':completion:*' menu select                              # Highlight menu selection
+# Case insensitive tab completion
+zstyle ':completion:*' matcher-list 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}'
+# Colored completion (different colors for dirs/files/etc)
+zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
+# automatically find new executables in path 
+zstyle ':completion:*' rehash true
+# Highlight menu selection
+zstyle ':completion:*' menu select
 # Speed up completions
 zstyle ':completion:*' accept-exact '*(N)'
 zstyle ':completion:*' use-cache on
@@ -26,7 +30,8 @@ zstyle ':completion:*' cache-path ~/.zsh/cache
 HISTFILE=~/.zhistory
 HISTSIZE=20000
 SAVEHIST=20000
-WORDCHARS=${WORDCHARS//\/[&.;]}  # Don't consider certain characters part of the word
+# Don't consider certain characters part of the word
+WORDCHARS=${WORDCHARS//\/[&.;]}
 
 function git_branch () {
     branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
