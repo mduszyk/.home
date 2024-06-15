@@ -44,18 +44,14 @@ function git_branch () {
     psvar[1]=$branch
 }
 
-function set_terminal_title {
+function terminal_title {
     echo -ne "\033]0;$1\007"
 }
 
 function zsh_title() {
     # replace home directory with ~
     local dir="${PWD/#$HOME/~}"
-    set_terminal_title "zsh $dir"
-}
-
-function cmd_title() {
-    set_terminal_title "$1"
+    terminal_title "zsh $dir"
 }
 
 autoload -Uz add-zsh-hook
@@ -63,7 +59,7 @@ autoload -Uz add-zsh-hook
 add-zsh-hook precmd git_branch
 add-zsh-hook precmd zsh_title
 # before command is executed
-add-zsh-hook preexec cmd_title
+add-zsh-hook preexec terminal_title
 
 # theming
 autoload -U compinit colors zcalc
