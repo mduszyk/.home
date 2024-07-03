@@ -28,8 +28,8 @@ zstyle ':completion:*' use-cache on
 zstyle ':completion:*' cache-path ~/.zsh/cache
 
 HISTFILE=~/.zhistory
-HISTSIZE=20000
-SAVEHIST=20000
+HISTSIZE=10000
+SAVEHIST=10000
 # Don't consider certain characters part of the word
 WORDCHARS=${WORDCHARS//\/[&.;]}
 
