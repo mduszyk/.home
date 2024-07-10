@@ -67,13 +67,13 @@ compinit -d
 colors
 
 # less colours (including man pages)
-export LESS_TERMCAP_mb=$'\e[38;5;186m'    # begin bold
-export LESS_TERMCAP_md=$'\e[38;5;104m'    # begin bold
-export LESS_TERMCAP_me=$'\e[0m'           # reset bold
-export LESS_TERMCAP_so=$'\e[38;5;222m'    # begin standout
-export LESS_TERMCAP_se=$'\e[0m'           # reset standout
-export LESS_TERMCAP_us=$'\e[38;5;217m'    # begin underline
-export LESS_TERMCAP_ue=$'\e[0m'           # reset underline
+export LESS_TERMCAP_mb=$'\e[38;5;186m'          # begin bold
+export LESS_TERMCAP_md=$'\e[38;5;104m'          # begin bold
+export LESS_TERMCAP_me=$'\e[0m'                 # reset bold
+export LESS_TERMCAP_so=$'\e[38;5;222;48;5;235m' # begin standout
+export LESS_TERMCAP_se=$'\e[0m'                 # reset standout
+export LESS_TERMCAP_us=$'\e[38;5;217m'          # begin underline
+export LESS_TERMCAP_ue=$'\e[0m'                 # reset underline
 export GROFF_NO_SGR=1
 export LESS="-R"
 export PAGER=less
