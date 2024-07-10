@@ -40,6 +40,7 @@ function git_branch () {
         if [ $? -ne 0 ]; then
             branch="*"$branch
         fi
+        branch=" $branch"
     fi
     psvar[1]=$branch
 }
@@ -117,5 +118,5 @@ fi
 # <<< conda initialize <<<
 
 # set prompt after conda init so conda env name is not shown for base env
-PS1="%F{#34DCF7}%1~%f %F{#9BC78D}%v%f "
+PS1="%F{#34DCF7}%1~%f%F{#9BC78D}%v%f "
 
