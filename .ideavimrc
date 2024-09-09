@@ -1,0 +1,30 @@
+let mapleader = " "
+
+set clipboard=unnamedplus
+set smartcase
+set noerrorbells
+set visualbell
+
+
+nmap Y y$
+" nmap gc :action CommentByLineComment<CR>
+" vmap gc :action CommentByLineComment<CR>
+
+" CTRL-S for saving
+nnoremap <c-s> :w<CR>
+vnoremap <c-s> <Esc>:w<CR>
+inoremap <c-s> <Esc>:w<CR>
+
+nnoremap <c-]> :action GotoDeclaration<CR>
+
+nnoremap <Leader>a ggVG
+nnoremap <Leader>r :reg<CR>
+
+" :actionlist [pattern]
+nnoremap <Leader>f :action FindUsages<CR>
+nnoremap <Leader>s :action RenameElement<CR>
+nnoremap <Leader>m :action ActivateTerminalToolWindow<CR>
+nnoremap <Leader>x :action CloseEditor<CR>
+nnoremap <Leader>o :action OptimizeImports<CR>
+nnoremap <Leader>= :action ReformatCode<CR>
+
