@@ -47,12 +47,17 @@ function git_branch () {
 
 function terminal_title {
     echo -ne "\033]0;$1\007"
+    last_cmd=${1##*|}
+    last_cmd=${last_cmd## }
+    last_cmd=${last_cmd%% *}
+    tmux rename-window -t $TMUX_PANE $last_cmd
 }
 
 function zsh_title() {
     # replace home directory with ~
     local dir="${PWD/#$HOME/~}"
     terminal_title "zsh $dir"
+    tmux rename-window -t $TMUX_PANE "zsh"
 }
 
 autoload -Uz add-zsh-hook
