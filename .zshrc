@@ -45,19 +45,14 @@ function git_branch () {
     psvar[1]=$branch
 }
 
-function terminal_title {
+function terminal_title() {
     echo -ne "\033]0;$1\007"
-    last_cmd=${1##*|}
-    last_cmd=${last_cmd## }
-    last_cmd=${last_cmd%% *}
-    tmux rename-window -t $TMUX_PANE $last_cmd
 }
 
 function zsh_title() {
     # replace home directory with ~
     local dir="${PWD/#$HOME/~}"
     terminal_title "zsh $dir"
-    tmux rename-window -t $TMUX_PANE "zsh"
 }
 
 autoload -Uz add-zsh-hook
@@ -66,6 +61,26 @@ add-zsh-hook precmd git_branch
 add-zsh-hook precmd zsh_title
 # before command is executed
 add-zsh-hook preexec terminal_title
+
+function tmux_win_name_cmd() {
+    cmd=${1##*|}
+    cmd=${cmd## }
+    cmd=${cmd#sudo *}
+    cmd=${cmd%% *}
+    tmux rename-window -t $TMUX_PANE $cmd
+}
+
+function tmux_win_name_reset() {
+    tmux rename-window -t $TMUX_PANE "zsh"
+}
+
+if [[ -n $TMUX_PANE ]]; then
+    export TMUX_WIN_NAME=$(tmux display-message -p '#W')
+    add-zsh-hook precmd tmux_win_name_reset
+    add-zsh-hook preexec tmux_win_name_cmd
+    trap 'tmux rename-window -t $TMUX_PANE $TMUX_WIN_NAME' EXIT
+fi
+
 
 # theming
 autoload -U compinit colors zcalc
