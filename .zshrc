@@ -107,12 +107,16 @@ alias grep='grep --color=always'
 alias free='free -m'
 alias df='df -h'
 alias cp='cp -i'
+alias vim=nvim
+
 alias gs='git status'
 alias ga='git add -A'
 alias gc='git commit -a'
 alias gl='git log'
 alias gd='git diff'
-alias vim=nvim
+alias gr='git remote -v'
+alias gb='git --no-pager branch -a'
+alias gt='git --no-pager tag'
 
 export TERM="xterm-256color"
 export EDITOR="vi -e"
