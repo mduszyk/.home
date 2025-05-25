@@ -102,6 +102,7 @@ export PAGER=less
 eval "$(dircolors -b)"
 
 alias ls='ls --color=always'
+alias ll='ls -l'
 alias grep='grep --color=always'
 alias free='free -m'
 alias df='df -h'
@@ -139,4 +140,9 @@ fi
 
 # set prompt after conda init so conda env name is not shown for base env
 PS1="%F{#34DCF7}%1~%f%F{#9BC78D}%v%f "
+
+# required by torch.use_deterministic_algorithms(True)
+export CUBLAS_WORKSPACE_CONFIG=:4096:8
+
+export JAVA_HOME=/usr/lib/jvm/java-17-openjdk
 
