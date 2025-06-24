@@ -118,6 +118,8 @@ alias gr='git remote -v'
 alias gb='git --no-pager branch -a'
 alias gt='git --no-pager tag'
 
+alias k='kubectl'
+
 export TERM="xterm-256color"
 export EDITOR="vi -e"
 export VISUAL="nvim"
