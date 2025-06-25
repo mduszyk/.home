@@ -96,14 +96,16 @@ export LESS_TERMCAP_se=$'\e[0m'                 # reset standout
 export LESS_TERMCAP_us=$'\e[38;5;217m'          # begin underline
 export LESS_TERMCAP_ue=$'\e[0m'                 # reset underline
 export GROFF_NO_SGR=1
-export LESS="-R"
+export LESS="-R -c"
 export PAGER=less
 
 eval "$(dircolors -b)"
 
+# for mac
+#alias ls='gls --color=always'
 alias ls='ls --color=always'
 alias ll='ls -l'
-alias grep='grep --color=always'
+alias grep='grep --color=always -i'
 alias free='free -m'
 alias df='df -h'
 alias cp='cp -i'
