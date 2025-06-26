@@ -38,9 +38,9 @@ function git_branch() {
     if [ -n "$branch" ]; then
         git diff --quiet 2>/dev/null
         if [ $? -ne 0 ]; then
-            branch=" %F{160}$branch%f"
+            branch=" %F{#C61F1F}$branch%f"
         else
-            branch=" %F{#90D84A}$branch%f"
+            branch=" %F{#9BC78D}$branch%f"
         fi
     fi
     print -n $branch
