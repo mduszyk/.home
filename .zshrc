@@ -58,7 +58,7 @@ function zsh_title() {
 
 autoload -Uz add-zsh-hook
 # before prompt is displayed
-add-zsh-hook precmd git_branch
+# add-zsh-hook precmd git_branch
 add-zsh-hook precmd zsh_title
 # before command is executed
 add-zsh-hook preexec terminal_title
