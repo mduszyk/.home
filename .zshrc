@@ -33,16 +33,17 @@ SAVEHIST=10000
 # Don't consider certain characters part of the word
 WORDCHARS=${WORDCHARS//\/[&.;]}
 
-function git_branch () {
-    branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
+function git_branch() {
+    local branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
     if [ -n "$branch" ]; then
         git diff --quiet 2>/dev/null
         if [ $? -ne 0 ]; then
-            branch="*"$branch
+            branch=" %F{160}$branch%f"
+        else
+            branch=" %F{#9BC78D}$branch%f"
         fi
-        branch=" $branch"
     fi
-    psvar[1]=$branch
+    print -n $branch
 }
 
 function terminal_title() {
@@ -147,7 +148,8 @@ fi
 # <<< conda initialize <<<
 
 # set prompt after conda init so conda env name is not shown for base env
-PS1="%F{#34DCF7}%1~%f%F{#9BC78D}%v%f "
+setopt prompt_subst # so git_branch is evaluated
+PROMPT='%F{#7DA1C9}%1~%f$(git_branch) ' # single quotes dealy calling git_branch
 
 # required by torch.use_deterministic_algorithms(True)
 export CUBLAS_WORKSPACE_CONFIG=:4096:8
