@@ -40,7 +40,7 @@ function git_branch() {
         if [ $? -ne 0 ]; then
             branch=" %F{160}$branch%f"
         else
-            branch=" %F{#9BC78D}$branch%f"
+            branch=" %F{#90D84A}$branch%f"
         fi
     fi
     print -n $branch
