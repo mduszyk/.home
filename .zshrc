@@ -27,7 +27,7 @@ zstyle ':completion:*' accept-exact '*(N)'
 zstyle ':completion:*' use-cache on
 zstyle ':completion:*' cache-path ~/.zsh/cache
 
-HISTFILE=~/.zhistory
+HISTFILE=~/.zsh_history
 HISTSIZE=10000
 SAVEHIST=10000
 # Don't consider certain characters part of the word
@@ -118,10 +118,6 @@ alias cp='cp -i'
 alias h='hostname'
 alias u='whoami'
 
-if command -v nvim >/dev/null 2>&1; then
-    alias vim=nvim
-fi
-
 alias gs='git status'
 alias ga='git add -A'
 alias gc='git commit -a'
@@ -134,9 +130,15 @@ alias gt='git --no-pager tag'
 alias d='docker'
 alias k='kubectl'
 
+if command -v nvim >/dev/null 2>&1; then
+    alias vim=nvim
+    export VISUAL="nvim"
+else
+    export VISUAL="vim"
+fi
+
 export TERM="xterm-256color"
 export EDITOR="vi -e"
-export VISUAL="vim"
 export PATH=~/.opt/bin:$PATH
 
 # >>> conda initialize >>>
