@@ -107,14 +107,16 @@ export PAGER=less
 
 eval "$(dircolors -b)"
 
-# for mac
-#alias ls='gls --color=always'
+#alias ls='gls --color=always' # for mac
 alias ls='ls --color=always'
 alias ll='ls -l'
+alias la='ls -la'
 alias grep='grep --color=always -i'
 alias free='free -m'
 alias df='df -h'
 alias cp='cp -i'
+alias h='hostname'
+alias u='whoami'
 
 if command -v nvim >/dev/null 2>&1; then
     alias vim=nvim
@@ -129,11 +131,12 @@ alias gr='git remote -v'
 alias gb='git --no-pager branch -a'
 alias gt='git --no-pager tag'
 
+alias d='docker'
 alias k='kubectl'
 
 export TERM="xterm-256color"
 export EDITOR="vi -e"
-export VISUAL="nvim"
+export VISUAL="vim"
 export PATH=~/.opt/bin:$PATH
 
 # >>> conda initialize >>>
