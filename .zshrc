@@ -47,7 +47,15 @@ function git_branch() {
 }
 
 function terminal_title() {
-    echo -ne "\033]0;$1\007"
+    local title=$1
+    if [ -n "$SSH_CONNECTION" ]; then
+        # This shell is running in an SSH session
+        # Split the string by space and take the third element
+        host=(${(z)SSH_CONNECTION})
+        host=$host[3]
+        title="$(whoami)@$host $title"
+    fi
+    echo -ne "\033]0;$title\007"
 }
 
 function zsh_title() {
