@@ -115,7 +115,10 @@ alias grep='grep --color=always -i'
 alias free='free -m'
 alias df='df -h'
 alias cp='cp -i'
-alias vim=nvim
+
+if command -v nvim >/dev/null 2>&1; then
+    alias vim=nvim
+fi
 
 alias gs='git status'
 alias ga='git add -A'
