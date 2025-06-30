@@ -1,3 +1,9 @@
+OS=$(uname)
+if [[ $OS == "Darwin" ]]; then
+    export PATH=/opt/homebrew/bin/:$PATH
+fi
+export PATH=~/.local/bin/:$PATH
+
 setopt correct              # Auto correct mistakes
 setopt extendedglob         # Extended globbing. Allows using regular expressions with *
 setopt nocaseglob           # Case insensitive globbing
