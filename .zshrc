@@ -111,7 +111,7 @@ export GROFF_NO_SGR=1
 export LESS="-R -c"
 export PAGER=less
 
-if [[ "$(uname)" == "Darwin" ]]; then
+if [[ $OS == "Darwin" ]]; then
     eval "$(gdircolors -b)"
     alias ls='gls --color=always' # for mac
 else
