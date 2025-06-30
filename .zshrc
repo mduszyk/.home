@@ -107,8 +107,12 @@ export PAGER=less
 
 eval "$(dircolors -b)"
 
-#alias ls='gls --color=always' # for mac
-alias ls='ls --color=always'
+if [[ "$(uname)" == "Darwin" ]]; then
+    alias ls='gls --color=always' # for mac
+else
+    alias ls='ls --color=always'
+fi
+
 alias ll='ls -l'
 alias la='ls -la'
 alias grep='grep --color=always -i'
