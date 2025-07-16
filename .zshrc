@@ -122,7 +122,7 @@ fi
 alias ll='ls -l'
 alias la='ls -la'
 alias grep='grep --color=always -i'
-alias free='free -m'
+alias free='free -h'
 alias df='df -h'
 alias cp='cp -i'
 alias h='hostname'
@@ -151,31 +151,15 @@ export TERM="xterm-256color"
 export EDITOR="vi -e"
 export PATH=~/.opt/bin:$PATH
 
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/home/m/.opt/miniforge3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/home/m/.opt/miniforge3/etc/profile.d/conda.sh" ]; then
-        . "/home/m/.opt/miniforge3/etc/profile.d/conda.sh"
-    else
-        export PATH="/home/m/.opt/miniforge3/bin:$PATH"
-    fi
-fi
-unset __conda_setup
-
-if [ -f "/home/m/.opt/miniforge3/etc/profile.d/mamba.sh" ]; then
-    . "/home/m/.opt/miniforge3/etc/profile.d/mamba.sh"
-fi
-# <<< conda initialize <<<
-
-# set prompt after conda init so conda env name is not shown for base env
 setopt prompt_subst # so git_branch is evaluated
-PROMPT='%F{#7DA1C9}%1~%f$(git_branch) ' # single quotes dealy calling git_branch
+PROMPT='%F{#8caed4}%1~%f$(git_branch) ' # single quotes dealy calling git_branch
 
 # required by torch.use_deterministic_algorithms(True)
 export CUBLAS_WORKSPACE_CONFIG=:4096:8
-
 export JAVA_HOME=/usr/lib/jvm/java-17-openjdk
+
+# initialize mamba, this is much faster
+export PATH=$HOME/.opt/miniforge3/bin:$PATH
+source $HOME/.opt/miniforge3/etc/profile.d/conda.sh
+eval "$(mamba shell hook --shell zsh)"
 
