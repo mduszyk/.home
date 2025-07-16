@@ -1,6 +1,8 @@
 OS=$(uname)
 if [[ $OS == "Darwin" ]]; then
+    export PATH=/opt/homebrew/opt/:$PATH
     export PATH=/opt/homebrew/bin/:$PATH
+    export PATH=/opt/homebrew/opt/libpq/bin:$PATH
 fi
 export PATH=~/.local/bin/:$PATH
 
@@ -122,6 +124,7 @@ fi
 alias ll='ls -l'
 alias la='ls -la'
 alias grep='grep --color=always -i'
+alias rg='rg --color=always -i'
 alias free='free -h'
 alias df='df -h'
 alias cp='cp -i'
@@ -136,6 +139,7 @@ alias gd='git diff'
 alias gr='git remote -v'
 alias gb='git --no-pager branch -a'
 alias gt='git --no-pager tag'
+alias gco='git checkout'
 
 alias d='docker'
 alias k='kubectl'
