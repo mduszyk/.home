@@ -167,3 +167,6 @@ export PATH=$HOME/.opt/miniforge3/bin:$PATH
 source $HOME/.opt/miniforge3/etc/profile.d/conda.sh
 eval "$(mamba shell hook --shell zsh)"
 
+if command -v fzf >/dev/null 2>&1; then
+    source <(fzf --zsh)
+fi
