@@ -5,6 +5,7 @@ if [[ $OS == "Darwin" ]]; then
     export PATH=/opt/homebrew/opt/libpq/bin:$PATH
 fi
 export PATH=~/.local/bin/:$PATH
+export PATH=~/.opt/bin:$PATH
 
 setopt correct              # Auto correct mistakes
 setopt extendedglob         # Extended globbing. Allows using regular expressions with *
@@ -153,14 +154,16 @@ fi
 
 export TERM="xterm-256color"
 export EDITOR="vi -e"
-export PATH=~/.opt/bin:$PATH
 
 setopt prompt_subst # so git_branch is evaluated
 PROMPT='%F{#8caed4}%1~%f$(git_branch) ' # single quotes dealy calling git_branch
+if [ -n "$SSH_CONNECTION" ]; then
+    PROMPT="%m $PROMPT"
+fi
 
 # required by torch.use_deterministic_algorithms(True)
-export CUBLAS_WORKSPACE_CONFIG=:4096:8
-export JAVA_HOME=/usr/lib/jvm/java-17-openjdk
+# export CUBLAS_WORKSPACE_CONFIG=:4096:8
+# export JAVA_HOME=/usr/lib/jvm/java-17-openjdk
 
 # initialize mamba, this is much faster
 export PATH=$HOME/.opt/miniforge3/bin:$PATH
