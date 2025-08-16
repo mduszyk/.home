@@ -14,12 +14,18 @@ setopt rcexpandparam        # Array expension with parameters
 setopt nocheckjobs          # Don't warn about running processes when exiting
 setopt numericglobsort      # Sort filenames numerically when it makes sense
 setopt nobeep               # No beep
-setopt appendhistory        # Immediately append history instead of overwriting
-setopt histignorealldups    # If a new command is a duplicate, remove the older one
 setopt autocd               # if only directory path is entered, cd there.
-setopt inc_append_history   # save commands are added to the history immediately, otherwise only when shell exits.
+
+setopt histignorealldups    # If a new command is a duplicate, remove the older one
+setopt appendhistory        # Immediately append history instead of overwriting
+setopt inc_append_history   # commands are added to the history immediately
 setopt histignorespace      # Don't save commands that start with space
+setopt extended_history
 setopt share_history
+
+HISTFILE=~/.zsh_history
+HISTSIZE=10000
+SAVEHIST=10000
 
 bindkey -e
 
@@ -36,9 +42,6 @@ zstyle ':completion:*' accept-exact '*(N)'
 zstyle ':completion:*' use-cache on
 zstyle ':completion:*' cache-path ~/.zsh/cache
 
-HISTFILE=~/.zsh_history
-HISTSIZE=10000
-SAVEHIST=10000
 # Don't consider certain characters part of the word
 WORDCHARS=${WORDCHARS//\/[&.;]}
 
@@ -166,10 +169,14 @@ fi
 # export JAVA_HOME=/usr/lib/jvm/java-17-openjdk
 
 # initialize mamba, this is much faster
-export PATH=$HOME/.opt/miniforge3/bin:$PATH
-source $HOME/.opt/miniforge3/etc/profile.d/conda.sh
-eval "$(mamba shell hook --shell zsh)"
+if command -v mamba >/dev/null 2>&1; then
+    export PATH=$HOME/.opt/miniforge3/bin:$PATH
+    source $HOME/.opt/miniforge3/etc/profile.d/conda.sh
+    eval "$(mamba shell hook --shell zsh)"
+fi
 
 if command -v fzf >/dev/null 2>&1; then
-    source <(fzf --zsh)
+    if output=$(fzf --zsh 2>/dev/null); then
+        source <(echo "$output")
+    fi
 fi
