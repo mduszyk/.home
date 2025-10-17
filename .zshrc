@@ -148,6 +148,8 @@ alias gco='git checkout'
 alias d='docker'
 alias k='kubectl'
 
+alias pj='python -m json.tool'
+
 if command -v nvim >/dev/null 2>&1; then
     alias vim=nvim
     export VISUAL="nvim"
@@ -179,4 +181,9 @@ if command -v fzf >/dev/null 2>&1; then
     if output=$(fzf --zsh 2>/dev/null); then
         source <(echo "$output")
     fi
+fi
+
+zshrc_local=$HOME/.zshrc.local
+if [[ -f $zshrc_local ]]; then
+    source $zshrc_local
 fi
