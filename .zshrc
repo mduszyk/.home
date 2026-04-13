@@ -17,11 +17,9 @@ setopt nobeep               # No beep
 setopt autocd               # if only directory path is entered, cd there.
 
 setopt histignorealldups    # If a new command is a duplicate, remove the older one
-setopt appendhistory        # Immediately append history instead of overwriting
-setopt inc_append_history   # commands are added to the history immediately
 setopt histignorespace      # Don't save commands that start with space
 setopt extended_history
-setopt share_history
+setopt share_history        # Share history across sessions (implies inc_append_history)
 
 HISTFILE=~/.zsh_history
 HISTSIZE=10000
@@ -102,7 +100,7 @@ fi
 
 # theming
 autoload -U compinit colors zcalc
-compinit -d
+compinit
 colors
 
 # less colours (including man pages)
@@ -157,8 +155,8 @@ else
     export VISUAL="vim"
 fi
 
-export TERM="xterm-256color"
-export EDITOR="vi -e"
+[[ -z $TMUX ]] && export TERM="xterm-256color"
+export EDITOR="nvim"
 
 setopt prompt_subst # so git_branch is evaluated
 PROMPT='%F{#8caed4}%1~%f$(git_branch) ' # single quotes dealy calling git_branch
