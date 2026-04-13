@@ -137,7 +137,7 @@ alias u='whoami'
 
 alias gs='git status'
 alias ga='git add -A'
-alias gc='git commit -a'
+alias gc='git commit'
 alias gl='git log'
 alias gd='git diff'
 alias gr='git remote -v'
@@ -171,8 +171,8 @@ fi
 # export JAVA_HOME=/usr/lib/jvm/java-17-openjdk
 
 # initialize mamba, this is much faster
+export PATH=$HOME/.opt/miniforge3/bin:$PATH
 if command -v mamba >/dev/null 2>&1; then
-    export PATH=$HOME/.opt/miniforge3/bin:$PATH
     source $HOME/.opt/miniforge3/etc/profile.d/conda.sh
     eval "$(mamba shell hook --shell zsh)"
 fi
