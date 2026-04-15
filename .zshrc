@@ -7,7 +7,6 @@ fi
 export PATH=~/.local/bin/:$PATH
 export PATH=~/.opt/bin:$PATH
 
-setopt correct              # Auto correct mistakes
 setopt extendedglob         # Extended globbing. Allows using regular expressions with *
 setopt nocaseglob           # Case insensitive globbing
 setopt rcexpandparam        # Array expension with parameters
@@ -22,8 +21,8 @@ setopt extended_history
 setopt share_history        # Share history across sessions (implies inc_append_history)
 
 HISTFILE=~/.zsh_history
-HISTSIZE=10000
-SAVEHIST=10000
+HISTSIZE=50000
+SAVEHIST=50000
 
 bindkey -e
 
@@ -44,16 +43,13 @@ zstyle ':completion:*' cache-path ~/.zsh/cache
 WORDCHARS=${WORDCHARS//\/[&.;]}
 
 function git_branch() {
-    local branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
-    if [ -n "$branch" ]; then
-        git diff --quiet 2>/dev/null
-        if [ $? -ne 0 ]; then
-            branch=" %F{#C61F1F}$branch%f"
-        else
-            branch=" %F{#9BC78D}$branch%f"
-        fi
+    local branch
+    branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null) || return
+    if git diff --quiet 2>/dev/null; then
+        print -n " %F{#9BC78D}$branch%f"
+    else
+        print -n " %F{#C61F1F}$branch%f"
     fi
-    print -n $branch
 }
 
 function terminal_title() {
@@ -100,7 +96,7 @@ fi
 
 # theming
 autoload -U compinit colors zcalc
-compinit
+compinit -d ~/.zsh/compdump
 colors
 
 # less colours (including man pages)
@@ -120,13 +116,13 @@ if [[ $OS == "Darwin" ]]; then
     alias ls='gls --color=always' # for mac
 else
     eval "$(dircolors -b)"
-    alias ls='ls --color=always'
+    alias ls='ls --color=auto'
 fi
 
-alias ll='ls -l'
-alias la='ls -la'
-alias grep='grep --color=always -i'
-alias rg='rg --color=always -i'
+alias ll='ls -lh'
+alias la='ls -lah'
+alias grep='grep --color=auto -i'
+alias rg='rg --color=auto -i'
 alias free='free -h'
 alias df='df -h'
 alias cp='cp -i'
@@ -181,7 +177,16 @@ if command -v fzf >/dev/null 2>&1; then
     fi
 fi
 
+if command -v zoxide >/dev/null 2>&1; then
+    eval "$(zoxide init zsh)"
+fi
+
 zshrc_local=$HOME/.zshrc.local
 if [[ -f $zshrc_local ]]; then
     source $zshrc_local
 fi
+
+[[ -f /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh ]] && \
+    source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+[[ -f /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]] && \
+    source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
