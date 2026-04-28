@@ -193,6 +193,5 @@ fi
 
 alias claude="claude --chrome"
 
-alias dotfiles='git --git-dir=$HOME/.dotfiles --work-tree=$HOME'
-
-alias dotfiles-pub='git --git-dir=$HOME/.dotfiles-pub --work-tree=$HOME'
+alias dot='git --git-dir=$HOME/.dotfiles --work-tree=$HOME'
+alias dot-pub='git --git-dir=$HOME/.dotfiles-pub --work-tree=$HOME'
